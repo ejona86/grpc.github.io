@@ -204,7 +204,7 @@ ssl_creds = GRPC::Core::ChannelCredentials.new(load_certs)  # load_certs typical
 authentication = Google::Auth.get_application_default()
 call_creds = GRPC::Core::CallCredentials.new(authentication.updater_proc)
 combined_creds = ssl_creds.compose(call_creds)
-stub = Helloworld::Greeter::Stub.new('greeter.googleapis.com', combined_creds)
+stub = Helloworld::Greeter::Stub.new('example.googleapis.com', combined_creds)
 ```
 
 ### C++
@@ -229,7 +229,7 @@ std::unique_ptr<Greeter::Stub> stub(Greeter::NewStub(channel));
 
 ```cpp
 auto creds = grpc::GoogleDefaultCredentials();
-auto channel = grpc::CreateChannel("greeter.googleapis.com", creds);
+auto channel = grpc::CreateChannel("example.googleapis.com", creds);
 std::unique_ptr<Greeter::Stub> stub(Greeter::NewStub(channel));
 ...
 ```
@@ -261,7 +261,7 @@ using Grpc.Auth;  // from Grpc.Auth NuGet package
 // Loads Google Application Default Credentials with publicly trusted roots.
 var channelCredentials = await GoogleGrpcCredentials.GetApplicationDefaultAsync();
 
-var channel = new Channel("greeter.googleapis.com", channelCredentials);
+var channel = new Channel("example.googleapis.com", channelCredentials);
 var client = new Greeter.GreeterClient(channel);
 ...
 ```
@@ -269,7 +269,7 @@ var client = new Greeter.GreeterClient(channel);
 #### Authenticate a single RPC call
 
 ```csharp
-var channel = new Channel("greeter.googleapis.com", new SslCredentials());  // Use publicly trusted roots.
+var channel = new Channel("example.googleapis.com", new SslCredentials());  // Use publicly trusted roots.
 var client = new Greeter.GreeterClient(channel);
 ...
 var googleCredential = await GoogleCredential.GetApplicationDefaultAsync();
@@ -316,7 +316,7 @@ def oauth2token_credentials(context, callback):
 
 auth_creds = grpc.metadata_call_credentials(oauth2token_credentials)
 channel_creds = grpc.composite_channel_credentials(transport_creds, auth_creds)
-channel = grpc.secure_channel('greeter.googleapis.com:443', channel_creds)
+channel = grpc.secure_channel('example.googleapis.com:443', channel_creds)
 stub = helloworld_pb2.GreeterStub(channel)
 ```
 
@@ -384,7 +384,7 @@ service providers.
 
 ```java
 GoogleCredentials creds = GoogleCredentials.getApplicationDefault();
-ManagedChannel channel = ManagedChannelBuilder.forTarget("greeter.googleapis.com")
+ManagedChannel channel = ManagedChannelBuilder.forTarget("example.googleapis.com")
     .build();
 GreeterGrpc.GreeterStub stub = GreeterGrpc.newStub(channel)
     .withCallCredentials(MoreCallCredentials.from(creds));
@@ -415,7 +415,7 @@ var ssl_creds = grpc.credentials.createSsl(root_certs);
 (new GoogleAuth()).getApplicationDefault(function(err, auth) {
   var call_creds = grpc.credentials.createFromGoogleCredential(auth);
   var combined_creds = grpc.credentials.combineChannelCredentials(ssl_creds, call_creds);
-  var stub = new helloworld.Greeter('greeter.googleapis.com', combined_credentials);
+  var stub = new helloworld.Greeter('example.googleapis.com', combined_credentials);
 });
 ```
 
@@ -432,7 +432,7 @@ var scope = 'https://www.googleapis.com/auth/grpc-testing';
   }
   var call_creds = grpc.credentials.createFromGoogleCredential(auth);
   var combined_creds = grpc.credentials.combineChannelCredentials(ssl_creds, call_creds);
-  var stub = new helloworld.Greeter('greeter.googleapis.com', combined_credentials);
+  var stub = new helloworld.Greeter('example.googleapis.com', combined_credentials);
 });
 ```
 
@@ -462,7 +462,7 @@ $channel_credentials = Grpc\ChannelCredentials::createComposite(
 $opts = [
   'credentials' => $channel_credentials
 ];
-$client = new helloworld\GreeterClient('greeter.googleapis.com', $opts);
+$client = new helloworld\GreeterClient('example.googleapis.com', $opts);
 ````
 
 #### Authenticate with Google using Oauth2 token (legacy approach)
@@ -475,5 +475,5 @@ $opts = [
   'credentials' => Grpc\Credentials::createSsl(file_get_contents('roots.pem'));
   'update_metadata' => $auth->getUpdateMetadataFunc(),
 ];
-$client = new helloworld\GreeterClient('greeter.googleapis.com', $opts);
+$client = new helloworld\GreeterClient('example.googleapis.com', $opts);
 ```
